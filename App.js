@@ -1,10 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
+import ChatListItem from './src/components/ChatListItem';
+
+const chat = {
+  id: "1",
+  user: {
+    image: "https://notjustdev-dummy.s3.us-east-2.amazonaws.com/avatars/lukas.jpeg",
+    name: "Lukas",
+  },
+  lastMessage: {
+    text: "I will take some drinks",
+    createdAt: "07:25",
+  },
+};
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <ChatListItem item={chat}/>
       <StatusBar style="auto" />
     </View>
   );
