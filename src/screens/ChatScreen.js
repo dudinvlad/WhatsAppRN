@@ -5,11 +5,22 @@ import bg from "../../assets/images/BG.png"
 import messages from "../../assets/data/messages.json";
 import Message from "../components/Message";
 import InputBox from "../components/InputBox";
+import { useRoute, useNavigation } from '@react-navigation/native';
+import { useEffect } from "react";
 
 const ChatScreen = () => {
+    const route = useRoute();
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        navigation.setOptions({ title: route.params.name });
+    }, [route.params.name]);
+    
+
     return(
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 105 : 90}
             style={styles.bg}
         >
             <ImageBackground source={bg} style={styles.bg}>

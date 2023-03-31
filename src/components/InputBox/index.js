@@ -2,6 +2,7 @@ import { Keyboard, StyleSheet, Text, View } from "react-native";
 import {AntDesign, MaterialIcons} from '@expo/vector-icons';
 import { TextInput } from "react-native";
 import { useState } from "react";
+import { SafeAreaView } from "react-native";
 
 const InputBox = () => {
 
@@ -14,11 +15,11 @@ const InputBox = () => {
     }
 
     return(
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <AntDesign name='plus' size={24} color='royalblue'/>
             <TextInput value={newMessage} onChangeText={setNewMessage} style={styles.input} placeholder="type your message here..."/>
             <MaterialIcons onPress={onSend} style={styles.send} name="send" size={24} color='#FFF'/>
-        </View>
+        </SafeAreaView>
     )
 }
 
@@ -39,6 +40,7 @@ const styles = StyleSheet.create({
         borderWidth: StyleSheet.hairlineWidth,
         borderRadius: 10,
         marginHorizontal: 15,
+        marginTop: 5,
     },
     send:{
         marginRight: 5,
