@@ -29,7 +29,16 @@ const styles = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         alignSelf: 'flex-start',
-        maxWidth: '80%'
+        maxWidth: '80%',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 2.22,
+
+        elevation: 3,
     },
     time: {
         color: 'gray',
