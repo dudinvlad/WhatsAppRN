@@ -17,6 +17,7 @@ const ContactListItem = ({ user }) => {
             <View style={styles.content}>
                 <View style={styles.row}>
                     <Text style={styles.name} numberOfLines={1}>{user.name}</Text>
+                    <Text style={styles.subTitle} numberOfLines={2}>{user.status}</Text>
                 </View>
             </View>
         </Pressable>
@@ -43,13 +44,17 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     row: {
-        flexDirection: 'row',
+        flexDirection: 'column',
         marginBottom: 10,
     },
     name: {
         flex: 1,
         fontWeight: 'bold',
     },
+    subTitle: {
+        color: 'gray',
+        flexWrap: 'wrap',
+    }
 });
 
 export default ContactListItem;
