@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
     subTitle: {
         color: 'gray',
         flexWrap: 'wrap',
+        paddingTop: 5,
     }
 });
 
