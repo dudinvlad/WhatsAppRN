@@ -8,8 +8,7 @@ export const getCommonChatRoomWithUser = async (userId) => {
         graphqlOperation(listChatRooms, { id: authUser.attributes.sub })
     )
 
-    const myChatRooms = response.data?.getUser?.ChatRooms?.items || [];//[0].chatRoom.users.items[0].user.id;
-    console.log(myChatRooms);
+    const myChatRooms = response.data?.getUser?.ChatRooms?.items || [];
 
     const chatRoom = myChatRooms.find((item) => {
         return item.chatRoom.users.items.some((userItem) =>

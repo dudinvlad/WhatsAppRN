@@ -19,12 +19,12 @@ const ChatListItem = ({ chat }) => {
         }
         getOpponentUser();
     }, []);
-    
-    return(
-        <Pressable onPress={() => navigation.navigate('Chat', {id: chat.id, name: opponent?.name})} style={styles.container}>
-            <Image 
-            style={styles.avatar} 
-            source={{uri: opponent?.image}}
+
+    return (
+        <Pressable onPress={() => navigation.navigate('Chat', { id: chat.id, name: opponent?.name })} style={styles.container}>
+            <Image
+                style={styles.avatar}
+                source={{ uri: opponent?.image }}
             />
             <View style={styles.content}>
                 <View style={styles.row}>
@@ -32,7 +32,7 @@ const ChatListItem = ({ chat }) => {
                     <Text style={styles.subTitle}>{dayjs(chat.lastMessage?.createdAt).fromNow(true)}</Text>
                 </View>
                 <Text numberOfLines={2} style={styles.subTitle}>
-                    {chat.lastMessage?.text}
+                    {chat.LastMessage?.text}
                 </Text>
             </View>
         </Pressable>
