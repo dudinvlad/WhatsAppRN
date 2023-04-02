@@ -4,15 +4,58 @@ import { useNavigation } from '@react-navigation/native';
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 dayjs.extend(relativeTime);
+import { API, graphqlOperation, Auth } from 'aws-amplify';
+import { createChatRoom, createUserChatRoom } from '../../graphql/mutations';
+import { getCommonChatRoomWithUser } from '../../services/ChatRoomService';
 
 const ContactListItem = ({ user }) => {
     const navigation = useNavigation();
 
-    return(
-        <Pressable onPress={() => {}} style={styles.container}>
-            <Image 
-            style={styles.avatar} 
-            source={{uri: user.image}}
+    const onPress = async () => {
+
+        const authUser = await Auth.currentAuthenticatedUser();
+
+        const existingChatRoom = await getCommonChatRoomWithUser(user.id)
+
+        if (existingChatRoom) {
+            navigation.navigate('Chat', { id: existingChatRoom.id, name: user.name })
+            return;
+        }
+
+        // create a new chat room
+        const newChatRoomResponse = await API.graphql(
+            graphqlOperation(createChatRoom, { input: {} })
+        )
+        //check if the new chat doesnt exist already 
+        if (!newChatRoomResponse.data?.createChatRoom) {
+            console.warn('Fail to create new chat!');
+        }
+
+        const newChatRoom = newChatRoomResponse.data?.createChatRoom;
+        //add selected user to the new chat
+        await API.graphql(
+            graphqlOperation(createUserChatRoom, {
+                input: { chatRoomId: newChatRoom.id, userId: user.id }
+            })
+        )
+
+        //add auth user(current) to the new chat
+
+        await API.graphql(
+            graphqlOperation(createUserChatRoom, {
+                input: { chatRoomId: newChatRoom.id, userId: authUser.attributes.sub }
+            })
+        )
+
+        //navigate to the chat
+        navigation.navigate('Chat', { id: newChatRoom.id, name: user.name })
+    }
+
+    return (
+        <Pressable onPress={onPress} style={styles.container}>
+            <Image
+                style={styles.avatar}
+                source={{ uri: user.image }}
             />
             <View style={styles.content}>
                 <View style={styles.row}>

@@ -1,6 +1,5 @@
 import { ImageBackground, KeyboardAvoidingView, Platform, StyleSheet } from "react-native";
 import { FlatList } from "react-native";
-import { Text, View } from "react-native"
 import bg from "../../assets/images/BG.png"
 import messages from "../../assets/data/messages.json";
 import Message from "../components/Message";
