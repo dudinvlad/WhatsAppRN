@@ -20,7 +20,12 @@ const ChatsScreen = () => {
       (room1, room2) =>
         new Date(room2.chatRoom.updatedAt) - new Date(room1.chatRoom.updatedAt)
     );
-    setChatRooms(sortedRooms);
+    const activeRooms = sortedRooms.sort(
+      (item1, item2) =>
+        new Date(item2.chatRoom?.LastMessage?.createdAt) -
+        new Date(item1.chatRoom?.LastMessage?.createdAt)
+    );
+    setChatRooms(activeRooms);
     setIsLoading(false);
   };
 

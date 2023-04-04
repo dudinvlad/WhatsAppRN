@@ -38,6 +38,8 @@ const ChatListItem = ({ chat }) => {
       },
       error: (error) => console.log(error),
     });
+
+    return () => subscription.unsubscribe();
   }, [chat.id]);
 
   return (

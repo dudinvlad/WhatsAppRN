@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ChatScreen from "../screens/ChatScreen";
 import MainTabNavigator from "./MainTabNavigator";
 import ContactsScreen from "../screens/ContactsScreen";
+import NewGroupScreen from "../screens/NewGroupScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ const Navigator = () => {
                 <Stack.Screen name='Home' component={MainTabNavigator} options={{headerShown: false}}/>
                 <Stack.Screen name='Chat' component={ChatScreen}/>
                 <Stack.Screen name='Contacts' component={ContactsScreen}/>
+                <Stack.Screen name='NewGroup' component={NewGroupScreen}/>
             </Stack.Navigator>
         </NavigationContainer>
     );
