@@ -33,7 +33,6 @@ const ContactsScreen = () => {
     const existingChatRoom = await getCommonChatRoomWithUser(user.id);
 
     if (existingChatRoom) {
-      console.log(existingChatRoom);
       navigation.navigate("Chat", { id: existingChatRoom.chatRoom.id, name: user.name });
       return;
     }

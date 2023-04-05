@@ -15,7 +15,12 @@ const ChatsScreen = () => {
     const response = await API.graphql(
       graphqlOperation(listChatRooms, { id: authUser.attributes.sub })
     );
-    const rooms = response?.data?.getUser?.ChatRooms?.items || [];
+
+    const rooms =
+      response?.data?.getUser?.ChatRooms?.items.filter(
+        (item) => !item._deleted
+      ) || [];
+
     const sortedRooms = rooms.sort(
       (room1, room2) =>
         new Date(room2.chatRoom.updatedAt) - new Date(room1.chatRoom.updatedAt)

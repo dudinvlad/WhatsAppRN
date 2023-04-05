@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import { FlatList } from "react-native";
 import bg from "../../assets/images/BG.png";
-import messages from "../../assets/data/messages.json";
 import Message from "../components/Message";
 import InputBox from "../components/InputBox";
 import { useRoute, useNavigation } from "@react-navigation/native";
@@ -15,6 +14,7 @@ import { useEffect, useState } from "react";
 import { API, graphqlOperation } from "aws-amplify";
 import { getChatRoom, listMessagesByChatRoom } from "../graphql/queries";
 import { onCreateMessage, onUpdateChatRoom } from "../graphql/subscriptions";
+import GroupInfoButton from "../components/GroupInfoButton";
 
 const ChatScreen = () => {
   const [chatRoom, setChatRoom] = useState();
@@ -79,8 +79,18 @@ const ChatScreen = () => {
   }, [chatRoomId]);
 
   useEffect(() => {
-    navigation.setOptions({ title: route.params.name });
-  }, [route.params.name]);
+    navigation.setOptions({
+      title: route.params.name,
+      headerRight: () => (
+        <GroupInfoButton
+          name="info"
+          size={24}
+          color="lightgray"
+          onPress={() => navigation.navigate("GroupInfo", { id: chatRoomId })}
+        />
+      ),
+    });
+  }, [route.params.name, chatRoomId]);
 
   if (!chatRoom) {
     return <ActivityIndicator />;

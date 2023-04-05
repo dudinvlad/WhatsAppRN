@@ -42,10 +42,14 @@ const ChatListItem = ({ chat }) => {
     return () => subscription.unsubscribe();
   }, [chat.id]);
 
+  const getName = () => {
+    return chatRoom.users.items.length > 2 ? chatRoom.name : opponent?.name;
+  };
+
   return (
     <Pressable
       onPress={() =>
-        navigation.navigate("Chat", { id: chatRoom.id, name: opponent?.name })
+        navigation.navigate("Chat", { id: chatRoom.id, name: getName() })
       }
       style={styles.container}
     >
@@ -53,7 +57,7 @@ const ChatListItem = ({ chat }) => {
       <View style={styles.content}>
         <View style={styles.row}>
           <Text style={styles.name} numberOfLines={1}>
-            {opponent?.name}
+            {getName()}
           </Text>
           {chatRoom.LastMessage && (
             <Text style={styles.subTitle}>
