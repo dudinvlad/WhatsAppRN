@@ -30,8 +30,6 @@ const AddContactsToGroupScreen = () => {
         (cUser) =>
           !existingChatMembers.some((eChatUser) => cUser.id === eChatUser.userId)
       );
-      // console.log("CURRENT USERS", JSON.stringify(existingChatMembers, null, 2));
-      // console.log("ALL USERs", JSON.stringify(allUsers, null, 2));
       setUsers(filterUsers);
     });
   };
