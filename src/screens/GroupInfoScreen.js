@@ -1,6 +1,6 @@
 import { View, Text, ActivityIndicator, StyleSheet, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { API, graphqlOperation } from "aws-amplify";
 import { onUpdateChatRoom } from "../graphql/subscriptions";
 import { FlatList } from "react-native";
@@ -12,6 +12,7 @@ const GroupInfoScreen = () => {
   const route = useRoute();
 
   const chatRoomID = route.params.id;
+  const navigation = useNavigation();
 
   useEffect(() => {
     API.graphql(graphqlOperation(getChatRoom, { id: chatRoomID })).then(
@@ -69,10 +70,15 @@ const GroupInfoScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{chatRoom.name}</Text>
-
-      <Text style={styles.sectionTitle}>
-        {users.length} Participants
-      </Text>
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text style={styles.sectionTitle}>{users.length} Participants</Text>
+        <Text
+          style={{ fontWeight: "bold", color: "royalblue" }}
+          onPress={() => navigation.navigate("AddContacts", { chatRoom })}
+        >
+          Invite friends
+        </Text>
+      </View>
       <View style={styles.section}>
         <FlatList
           data={users}
